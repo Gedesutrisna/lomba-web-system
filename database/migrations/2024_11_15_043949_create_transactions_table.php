@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('course_id')->constrained('courses')->cascadeOnDelete();
+            $table->decimal('amount', 10, 2);
+            $table->dateTime('transaction_date');
+            $table->enum('payment_method', ['credit_card', 'bank_transfer', 'paypal']);
+            $table->enum('status', ['successful', 'failed', 'pending'])->default('pending');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

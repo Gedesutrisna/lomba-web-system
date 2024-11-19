@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('lessons', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('course_id')->constrained('courses')->cascadeOnDelete();
+            $table->string('title');
+            $table->text('description')->nullable();
+            $table->string('video_url');
+            $table->integer('order');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

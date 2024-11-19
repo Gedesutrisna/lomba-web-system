@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('submissions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('question_id')->constrained('questions')->cascadeOnDelete();
+            $table->text('answer');
+            $table->timestamp('submitted_at');
+            $table->boolean('is_correct')->default(false);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
